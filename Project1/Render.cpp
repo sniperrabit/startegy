@@ -30,12 +30,32 @@ void Main::renderItem(SDL_Texture *tex, SDL_Renderer *ren, Point* p, int size, i
 	//SDL_RenderPresent(ren);
 
 }
+
+void Main::renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size, int w, int h) {
+	
+	Point tmp;
+	 tmp = p->twoDToIso(p);
+	//Setup the destination rectangle to be at the position we want
+	SDL_Rect dst;
+
+	dst.x = tmp.x*size;
+	dst.y = (tmp.y *size) - ((h*size) - size);
+
+	dst.w = w*size * 2;
+	dst.h = h*size;
+	SDL_RenderCopy(renderer, tex, NULL, &dst);
+	//SDL_RenderPresent(ren);
+
+}
 void Main::render(SDL_Renderer *renderer,int size) {
 	
 	SDL_RenderClear(renderer);
 	//Render ground
 	SDL_Texture* texture=NULL;
-	
+
+
+	Area::AreaControl.OnRender(renderer,Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+	/*
 	int k = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
@@ -53,13 +73,16 @@ void Main::render(SDL_Renderer *renderer,int size) {
 				}
 
 				//render Hero
-				CSurface::OnDraw(renderer, Hero1, Hero1.Cpoint, 0, Hero1.Anim_Control.GetCurrentFrame() * 64, 64, 64);
+			//	CSurface::OnDraw(renderer, Hero1, Hero1.Cpoint, 0, Hero1.Anim_Control.GetCurrentFrame() * 64, 64, 64);
+			
 			}						
 			k++;
 		}
 	}
 	k = 0;
+	*/
 	SDL_DestroyTexture(texture);
+
 	SDL_RenderPresent(renderer);
 	
 }

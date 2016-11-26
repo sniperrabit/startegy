@@ -10,6 +10,8 @@ using namespace std;
 
 
 
+
+
 bool Main::OnInit() {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -36,7 +38,11 @@ bool Main::OnInit() {
 		return false;
 	}
 
-	
+	if (Area::AreaControl.OnLoad("maps/1area.txt", renderer) == false) {
+		return false;
+	}
+//	SDL_EnableKeyRepeat(1, SDL_DEFAULT_REPEAT_INTERVAL / 3);
+
 	
 	Hero1.OnLoad(1, "gfx/yoshi.png",9,1, renderer, 1, 1, 8);
 
@@ -61,7 +67,7 @@ bool Main::OnInit() {
 		levelPoints[i].y = (i / xTiles );
 	}
 
-	SDL_Texture* texture;
+//	SDL_Texture* texture;
 /*	//Render ground
 	int k = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
@@ -128,3 +134,5 @@ SDL_Texture* Main::prepareRenderItems(SDL_Renderer* renderer,int i, map <int, En
 
 	return Texture;
 }
+
+

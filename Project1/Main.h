@@ -7,14 +7,17 @@
 #include "Entity.h"
 #include "Hero.h"
 #include "CAnimation.h"
+#include "Area.h"
+#include "Camera.h"
+#include <windows.h>
 
 #include <map>
 #include <string>
 using namespace std;
 
 #define SHAPE_SIZE 64
-#define SCREEN_WIDTH 1100
-#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 700
 #define LEVEL_HEIGHT 6
 #define LEVEL_WIDTH 6
 
@@ -24,7 +27,7 @@ private:
 	bool    Running;
 	SDL_Surface*    Surf_Display;
 	SDL_Surface*    Surf_Test;
-	SDL_Renderer* renderer;
+	
 	Point levelPoints[LEVEL_WIDTH*LEVEL_HEIGHT];
 
 	int levelGround[LEVEL_WIDTH][LEVEL_HEIGHT] = {
@@ -53,13 +56,13 @@ private:
 public:
 	Hero			Hero1;
 	CAnimation      Anim_Yoshi;
-
+	SDL_Renderer* renderer;
 	Main();
 	
 	int OnExecute();
 
 public:
-
+	
 	bool OnInit();
 
 	SDL_Texture * prepareRenderItems(SDL_Renderer * renderer, int i, map <int, Entity> &EntityMap);
@@ -69,7 +72,7 @@ public:
 	void renderItem(SDL_Texture *tex, SDL_Renderer *ren,Point* p, int size, int w, int h);
 
 	void render(SDL_Renderer * renderer,  int size);
-
+	static void renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size, int w, int h);
 	
 
 	void OnCleanup();
@@ -78,7 +81,6 @@ public:
 	void renderGround(SDL_Texture * tex, SDL_Renderer * ren, Point * p, int size, int w, int h);
 
 	
-
 };
 
 #endif

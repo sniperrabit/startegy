@@ -6,6 +6,9 @@ using namespace std;
 
 
 Entity::Entity() {
+	
+
+	TypeID = TILE_TYPE_NONE;
 	textureEntity = NULL;
 	surfaceEntity = NULL;
 	id = NULL;
