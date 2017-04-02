@@ -8,7 +8,7 @@ private:
 	int    CurrentFrame;
 
 	int     FrameInc;
-
+	
 private:
 	int     FrameRate; //Milliseconds
 
@@ -21,7 +21,7 @@ public:
 
 public:
 	CAnimation();
-
+	
 	void OnAnimate();
 
 public:

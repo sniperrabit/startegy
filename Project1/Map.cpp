@@ -112,3 +112,15 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
 	}
 }
 
+Entity* Map::GetTile(float X, float Y) {
+	int ID = 0;
+
+	ID = X / TILE_SIZE;
+	ID = ID + (MAP_WIDTH * (Y / TILE_SIZE));
+
+	if (ID < 0 || ID >= TileList.size()) {
+		return NULL;
+	}
+
+	return &TileList[ID];
+}

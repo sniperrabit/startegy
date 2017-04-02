@@ -32,8 +32,8 @@ bool CSurface::OnDraw(SDL_Renderer* renderer, Hero hero, Point &p, int X2, int Y
 	SrcR.h = H;
 
 //	SDL_FreeSurface(Surf_Temp);
-	SDL_UpdateTexture(hero.Texture_Hero, NULL, hero.Surf_Hero->pixels, hero.Surf_Hero->pitch);
-	SDL_RenderCopy(renderer, hero.Texture_Hero, &SrcR, &dst);	
+//	SDL_UpdateTexture(hero.textureEntity, NULL, hero.surfaceEntity->pixels, hero.surfaceEntity->pitch);
+	SDL_RenderCopy(renderer, hero.textureEntity, &SrcR, &dst);	
 	//SDL_BlitSurface(Surf_Src, &SrcR, Surf_Dest, &DestR);
 
 	return true;

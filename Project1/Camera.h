@@ -18,26 +18,26 @@ private:
 	int X;
 	int Y;
 
-	int* TargetX;
-	int* TargetY;
+	float* TargetX;
+	float* TargetY;
 
 public:
-	int TargetMode;
+	float TargetMode;
 
 public:
 	Camera();
 
 public:
-	void OnMove(int MoveX, int MoveY);
+	void OnMove(float MoveX, float MoveY);
 
 public:
 	int GetX();
 	int GetY();
 
 public:
-	void SetPos(int X, int Y);
+	void SetPos(float X, float Y);
 
-	void SetTarget(int* X, int* Y);
+	void SetTarget(float* X, float* Y);
 };
 
 #endif

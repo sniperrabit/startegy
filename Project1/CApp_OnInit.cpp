@@ -2,15 +2,9 @@
 #include <stdio.h>
 #include <SDL_image.h>
 
-
 #include <map>
 #include <string>
 using namespace std;
-
-
-
-
-
 
 bool Main::OnInit() {
 
@@ -41,9 +35,18 @@ bool Main::OnInit() {
 	if (Area::AreaControl.OnLoad("maps/1area.txt", renderer) == false) {
 		return false;
 	}
-//	SDL_EnableKeyRepeat(1, SDL_DEFAULT_REPEAT_INTERVAL / 3);
-
 	
+	Hero3.OnLoad(3, "gfx/yoshi2.png", 1, 1, renderer, 1, 1, 8);
+//	Hero2.OnLoad(2, "gfx/yoshi2.png", 10, 3, renderer, 1, 1, 8);
+
+
+	Entity::EntityList.push_back(&Hero3);
+ //   Entity::EntityList.push_back(&Hero2);
+//	Camera::CameraControl.TargetMode = TARGET_MODE_CENTER;
+//	Camera::CameraControl.SetTarget(&Hero3.point.x, &Hero3.point.y);
+
+
+
 	Hero1.OnLoad(1, "gfx/yoshi.png",9,1, renderer, 1, 1, 8);
 
 	Anim_Yoshi.MaxFrames = 8;

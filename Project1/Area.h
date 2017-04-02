@@ -3,6 +3,8 @@
 
 #include "Area.h"
 #include "Map.h"
+#include "Entity.h"
+
 class Map;
 class Area {
 public:
@@ -10,6 +12,9 @@ public:
 
 public:
 	std::vector<Map>       MapList;
+
+	Map*    GetMap(int X, int Y);
+	Entity*    GetTile(int X, int Y);
 
 private:
 	int                     AreaSize;
@@ -24,7 +29,7 @@ public:
 	void    OnRender(SDL_Renderer *renderer, int CameraX, int CameraY);
 
 	void    OnCleanup();
-	
+
 };
 
 #endif

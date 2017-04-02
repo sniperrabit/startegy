@@ -55,6 +55,13 @@ void Main::render(SDL_Renderer *renderer,int size) {
 
 
 	Area::AreaControl.OnRender(renderer,Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+
+
+	Hero3.point.x -= Camera::CameraControl.GetX();
+	Hero3.point.y -= Camera::CameraControl.GetY();
+	CSurface::OnDraw(renderer, Hero3, Hero3.point,Hero3.CurrentFrameCol * 64,
+		(Hero3.CurrentFrameRow + Hero3.Anim_Control.GetCurrentFrame()) * 64, 64, 64);
+//	CSurface::OnDraw(renderer, Hero3, Hero3.point, 0, Hero3.Anim_Control.GetCurrentFrame() * 64, 64, 64);
 	/*
 	int k = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
@@ -73,7 +80,9 @@ void Main::render(SDL_Renderer *renderer,int size) {
 				}
 
 				//render Hero
-			//	CSurface::OnDraw(renderer, Hero1, Hero1.Cpoint, 0, Hero1.Anim_Control.GetCurrentFrame() * 64, 64, 64);
+				// CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
+				CSurface::OnDraw(renderer, Hero1, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
+				CSurface::OnDraw(renderer, Hero1, Hero1.Cpoint, 0, Hero1.Anim_Control.GetCurrentFrame() * 64, 64, 64);
 			
 			}						
 			k++;

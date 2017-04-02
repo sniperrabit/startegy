@@ -126,6 +126,7 @@
     <ClCompile Include="CApp_OnEvent.cpp" />
     <ClCompile Include="CApp_OnInit.cpp" />
     <ClCompile Include="CApp_OnLoop.cpp" />
+    <ClCompile Include="FPS.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Area.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Main.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

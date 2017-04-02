@@ -1,5 +1,5 @@
-#ifndef _CAPP_H_
-#define _CAPP_H_
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 #include <SDL.h>
 #include "CSurface.h"
@@ -16,10 +16,12 @@
 using namespace std;
 
 #define SHAPE_SIZE 64
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 700
+#define SCREEN_WIDTH 1300
+#define SCREEN_HEIGHT 1000
 #define LEVEL_HEIGHT 6
 #define LEVEL_WIDTH 6
+
+class Entity;
 
 class Main {
 
@@ -48,15 +50,19 @@ private:
 		{ 0, 0, 0, 0, 0, 2 },
 	};
 
-	Entity         Entity1;
-	Entity         Entity2;
-	Entity         Entity3;
+//	Entity         Entity1;
+//	Entity         Entity2;
+//	Entity         Entity3;
 	
 	std::map <int, Entity> EntityMap;
 public:
 	Hero			Hero1;
 	CAnimation      Anim_Yoshi;
 	SDL_Renderer* renderer;
+
+	Hero    Hero3;
+	Hero    Hero2;
+
 	Main();
 	
 	int OnExecute();

@@ -103,16 +103,21 @@ void Area::OnRender(SDL_Renderer *renderer, int CameraX, int CameraY) {
 	FirstID = FirstID + ((-CameraY / MapHeight) * AreaSize);
 
 	//Every time render only 4 maps
-	for (int i = 0; i < 4; i++) {
-		int ID = FirstID + ((i / 2) * AreaSize) + (i % 2);
+	for (int i = 0; i < 9; i++) {
+		//Disablerendering only 4 map
+/*		int ID = FirstID + ((i / 2) * AreaSize) + (i % 2);
 
 		if (ID < 0 || ID >= MapList.size()) continue;
-
 		int X = ((ID % AreaSize) * MapWidth) + CameraX;
 		int Y = ((ID / AreaSize) * MapHeight) + CameraY;
 
 		//render map on x,y
-		MapList[ID].OnRender(renderer,X, Y);
+		MapList[ID].OnRender(renderer,X+LEVEL_WIDTH, Y - LEVEL_HEIGHT);
+*/		
+		//Render all maps
+		int X = ((i % AreaSize) * MapWidth) + CameraX;
+		int Y = ((i / AreaSize) * MapHeight) + CameraY;
+		MapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT);
 	}
 }
 
@@ -124,3 +129,30 @@ void Area::OnCleanup() {
 	MapList.clear();
 }
 
+Map* Area::GetMap(int X, int Y) {
+	int MapWidth = MAP_WIDTH * TILE_SIZE;
+	int MapHeight = MAP_HEIGHT * TILE_SIZE;
+
+	int ID = X / MapWidth;
+	ID = ID + ((Y / MapHeight) * AreaSize);
+
+	if (ID < 0 || ID >= MapList.size()) {
+		return NULL;
+	}
+
+	return &MapList[ID];
+}
+
+Entity* Area::GetTile(int X, int Y) {
+	int MapWidth = MAP_WIDTH * TILE_SIZE;
+	int MapHeight = MAP_HEIGHT * TILE_SIZE;
+
+	Map* Map = GetMap(X, Y);
+
+	if (Map == NULL) return NULL;
+
+	X = X % MapWidth;
+	Y = Y % MapHeight;
+
+	return Map->GetTile(X, Y);
+}

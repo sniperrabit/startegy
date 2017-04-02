@@ -3,20 +3,21 @@
 
 #include <vector>
 
-#include "CAnimation.h"
+//#include "CAnimation.h"
 #include "Point.h"
 #include <map>
 #include <string>
 using namespace std;
 
-class Hero {
+#include "Entity.h"
 
+class Hero : public Entity {
+public:
+	Hero();
 protected:
 	
-	
-	
 public:
-	CAnimation      Anim_Control;
+	/*CAnimation      Anim_Control;
 	int		id;
 	char* path;
 	char* facing;
@@ -28,20 +29,17 @@ public:
 	int             width;
 	int             height;
 	int             AnimState;
-	int MaxFrames;
+	int MaxFrames;*/
 public:
-	Hero::Hero();
-	Hero::Hero(int id, char* path, int x, int y, int width, int  height);
+	
+	//Hero(int id, char* path, int x, int y, int width, int  height);
 
-	virtual ~Hero();
-	virtual bool OnLoad(int id,char* File,int x, int y, SDL_Renderer* renderer, int Width, int Height, int MaxFrames);
+	bool OnLoad(int id,char* File,int x, int y, SDL_Renderer* renderer, int Width, int Height, int MaxFrames);
 
 	void OnLoop();
 
-	//	virtual void OnLoop();
+	void OnAnimate();
 
-	//	virtual void OnRender(SDL_Surface* Surf_Display);
-
-	//	virtual void OnCleanup();
+	void OnCollision(Entity* Entity);
 };
 #endif

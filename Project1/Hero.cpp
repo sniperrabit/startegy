@@ -7,8 +7,9 @@
 using namespace std;
 
 
+
 Hero::Hero() {
-	Texture_Hero= NULL;
+/*	Texture_Hero= NULL;
 	Surf_Hero = NULL;
 	id = NULL;
 	Cpoint;
@@ -17,7 +18,7 @@ Hero::Hero() {
 	char* facing = NULL;
 	width = height = 0;
 	MaxFrames = 1;
-	AnimState = 0;
+	AnimState = 0; */
 }
 /*
 Hero::Hero(int id, char* path, CSurface SurSurf_Hero, float x, float y, int AnimState, int width, int  height) {
@@ -32,6 +33,7 @@ Hero::Hero(int id, char* path, CSurface SurSurf_Hero, float x, float y, int Anim
 
 	this->AnimState = AnimState;
 }	*/
+/*
 Hero::Hero(int id, char* path, int x, int y, int width, int  height) {
 	this->Surf_Hero = NULL;
 	this->id = id;
@@ -43,10 +45,17 @@ Hero::Hero(int id, char* path, int x, int y, int width, int  height) {
 	this->height = height;
 
 	this->AnimState = NULL;
-}
-Hero::~Hero() {
-}
+	
+}*/
 
+bool Hero::OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
+	if (Entity::OnLoad( id,  File,  x,  y,  renderer, width,  height, MaxFrames) == false) {
+		return false;
+	}
+
+	return true;
+}
+/*
 bool Hero::OnLoad(int id ,char* File,int x ,int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		return false;
@@ -71,6 +80,21 @@ bool Hero::OnLoad(int id ,char* File,int x ,int y, SDL_Renderer* renderer, int w
 
 	return true;
 }
+*/
 void Hero::OnLoop() {
-	Anim_Control.OnAnimate();
+	Entity::OnLoop();
+	//Anim_Control.OnAnimate();
+}
+
+void Hero::OnAnimate() {
+	if (SpeedX != 0) {
+		Anim_Control.MaxFrames = 8;
+	}
+	else {
+		Anim_Control.MaxFrames = 0;
+	}
+
+	Entity::OnAnimate();
+}
+void Hero::OnCollision(Entity* Entity) {
 }

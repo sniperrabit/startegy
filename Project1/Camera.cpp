@@ -1,6 +1,9 @@
 
 #include "Camera.h"
 
+//Kamera jest niepotrzebna jeœli i tak sie renderuje wszystkopo przesuniêciu.
+//Renderowanie paru map obok nie ma sensu ?
+
 Camera Camera::CameraControl;
 
 Camera::Camera() {
@@ -11,7 +14,7 @@ Camera::Camera() {
 	TargetMode = TARGET_MODE_NORMAL;
 }
 
-void Camera::OnMove(int MoveX, int MoveY) {
+void Camera::OnMove(float MoveX, float MoveY) {
 	X += MoveX;
 	Y += MoveY;
 }
@@ -40,12 +43,12 @@ int Camera::GetY() {
 	return Y;
 }
 
-void Camera::SetPos(int X, int Y) {
+void Camera::SetPos(float X, float Y) {
 	this->X = X;
 	this->Y = Y;
 }
 
-void Camera::SetTarget(int* X, int* Y) {
+void Camera::SetTarget(float* X, float* Y) {
 	TargetX = X;
 	TargetY = Y;
 }
