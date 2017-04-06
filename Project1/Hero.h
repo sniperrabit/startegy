@@ -40,6 +40,6 @@ public:
 
 	void OnAnimate();
 
-	void OnCollision(Entity* Entity);
+	bool OnCollision(Entity* Entity);
 };
 #endif

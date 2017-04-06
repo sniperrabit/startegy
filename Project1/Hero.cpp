@@ -96,5 +96,8 @@ void Hero::OnAnimate() {
 
 	Entity::OnAnimate();
 }
-void Hero::OnCollision(Entity* Entity) {
+bool Hero::OnCollision(Entity* Entity) {
+	Jump();
+
+	return true;
 }

@@ -17,7 +17,7 @@ using namespace std;
 enum {
 	TILE_TYPE_NONE = 5,
 	TILE_TYPE_NORMAL = 6,
-	TILE_TYPE_BLOCK 
+	TILE_TYPE_BLOCK = 7
 };
 
 enum {
@@ -54,6 +54,8 @@ public:
 	SDL_Texture*    textureEntity;
 	int MaxFrames;
 
+	bool MoveUp;
+	bool MoveDown;
 	bool        MoveLeft;
 	bool        MoveRight;
 	int        Type;
@@ -73,13 +75,17 @@ protected:
 	int        Col_Y;
 	int        Col_Width;
 	int        Col_Height;
+protected:
+	bool    CanJump;
 
+public:
+	bool     Jump();
 public:
 	Entity();
 	Entity(int id, char* path,  int width, int  height);
-	Entity(int id, char* File, int x, int y, SDL_Renderer* renderer, int Width, int Height, int MaxFrames);
+	Entity(int id, int TypeID, char* File, int x, int y, SDL_Renderer* renderer, int Width, int Height, int MaxFrames);
 	virtual ~Entity();
-	virtual void OnCollision(Entity* Entity);
+	virtual bool OnCollision(Entity* Entity);
 	void OnAnimate();
 	void    OnMove(float MoveX, float MoveY);
 	virtual bool OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames);

@@ -32,7 +32,8 @@ void Main::renderItem(SDL_Texture *tex, SDL_Renderer *ren, Point* p, int size, i
 }
 
 void Main::renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size, int w, int h) {
-	
+	//parameters in with offset point( x+LEVEL_WIDTH ; y-LEVEL_HEIGHT)
+
 	Point tmp;
 	 tmp = p->twoDToIso(p);
 	//Setup the destination rectangle to be at the position we want
@@ -56,11 +57,15 @@ void Main::render(SDL_Renderer *renderer,int size) {
 
 	Area::AreaControl.OnRender(renderer,Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
 
+	
 
 	Hero3.point.x -= Camera::CameraControl.GetX();
 	Hero3.point.y -= Camera::CameraControl.GetY();
-	CSurface::OnDraw(renderer, Hero3, Hero3.point,Hero3.CurrentFrameCol * 64,
-		(Hero3.CurrentFrameRow + Hero3.Anim_Control.GetCurrentFrame()) * 64, 64, 64);
+	Point* p = new Point(Hero3.point.x+LEVEL_WIDTH, Hero3.point.y - LEVEL_HEIGHT);//OFFSET
+
+	CSurface::OnDraw(renderer, Hero3, *p, Hero3.CurrentFrameCol * 64,
+		(Hero3.CurrentFrameRow + Hero3.Anim_Control.GetCurrentFrame()) * 64, 1, 1);
+
 //	CSurface::OnDraw(renderer, Hero3, Hero3.point, 0, Hero3.Anim_Control.GetCurrentFrame() * 64, 64, 64);
 	/*
 	int k = 0;

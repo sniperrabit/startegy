@@ -130,12 +130,12 @@ void Area::OnCleanup() {
 }
 
 Map* Area::GetMap(int X, int Y) {
-	int MapWidth = MAP_WIDTH * TILE_SIZE;
-	int MapHeight = MAP_HEIGHT * TILE_SIZE;
+	int MapWidth = LEVEL_WIDTH * TILE_SIZE;//6x16
+	int MapHeight = LEVEL_HEIGHT * TILE_SIZE;//6x16
 
 	int ID = X / MapWidth;
-	ID = ID + ((Y / MapHeight) * AreaSize);
-
+	ID = ID + ((Y / MapHeight) * AreaSize);//x3
+	printf("GET MAP ID: %d \n",ID);
 	if (ID < 0 || ID >= MapList.size()) {
 		return NULL;
 	}
@@ -144,8 +144,10 @@ Map* Area::GetMap(int X, int Y) {
 }
 
 Entity* Area::GetTile(int X, int Y) {
-	int MapWidth = MAP_WIDTH * TILE_SIZE;
-	int MapHeight = MAP_HEIGHT * TILE_SIZE;
+	int MapWidth = LEVEL_WIDTH * TILE_SIZE;
+	int MapHeight = LEVEL_HEIGHT * TILE_SIZE;
+	X = abs(X);
+	Y = abs(Y);
 
 	Map* Map = GetMap(X, Y);
 

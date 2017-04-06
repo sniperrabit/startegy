@@ -36,7 +36,7 @@ bool Main::OnInit() {
 		return false;
 	}
 	
-	Hero3.OnLoad(3, "gfx/yoshi2.png", 1, 1, renderer, 1, 1, 8);
+	Hero3.OnLoad(3, "gfx/yoshi2.png", 0, 0, renderer, 1, 1, 8);
 //	Hero2.OnLoad(2, "gfx/yoshi2.png", 10, 3, renderer, 1, 1, 8);
 
 
@@ -47,14 +47,14 @@ bool Main::OnInit() {
 
 
 
-	Hero1.OnLoad(1, "gfx/yoshi.png",9,1, renderer, 1, 1, 8);
+//	Hero1.OnLoad(1, "gfx/yoshi.png",9,1, renderer, 1, 1, 8);
 
-	Anim_Yoshi.MaxFrames = 8;
-	Anim_Yoshi.Oscillate = true;
+//	Anim_Yoshi.MaxFrames = 8;
+//	Anim_Yoshi.Oscillate = true;
 	
-	EntityMap.insert(pair<int, Entity>(1, Entity(1, "gfx/grass2.png",  1, 1, renderer,1,1,8)));
-	EntityMap.insert(pair<int, Entity>(2, Entity(2, "gfx/house.png",  1, 2, renderer, 1, 2, 8)));
-	EntityMap.insert(pair<int, Entity>(3, Entity(3, "gfx/house2.png",  2, 3, renderer, 2,3, 8)));
+	EntityMap.insert(pair<int, Entity>(1, Entity(1, TILE_TYPE_NORMAL, "gfx/grass2.png",  1, 1, renderer,1,1,8)));
+	EntityMap.insert(pair<int, Entity>(2, Entity(2, TILE_TYPE_BLOCK, "gfx/house.png",  1, 2, renderer, 1, 2, 8)));
+	EntityMap.insert(pair<int, Entity>(3, Entity(3, TILE_TYPE_BLOCK, "gfx/house2.png",  2, 3, renderer, 2,3, 8)));
 
 
 

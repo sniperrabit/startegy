@@ -1,5 +1,5 @@
 gfx/grass.png
 3
-maps/1map maps/1map maps/2map
-maps/1map maps/1map maps/1map
-maps/1map maps/1map maps/3map
+maps/1map maps/2map maps/2map
+maps/2map maps/2map maps/1map
+maps/2map maps/2map maps/3map

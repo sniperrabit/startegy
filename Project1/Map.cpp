@@ -38,16 +38,16 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 
 			fscanf_s(FileHandle, "%d ", &tempTile.id);
 			if (tempTile.id==1){
-				tempTile = Entity(i, "gfx/grass2.png", x, y, renderer, 1, 1, 8);			
-				tempTile.TypeID = 1;
+				tempTile = Entity(i, TILE_TYPE_NORMAL, "gfx/grass2.png", x, y, renderer, 1, 1, 8);
+				//tempTile.TypeID = 1;
 			}
 			else if (tempTile.id == 2) {
-				tempTile = Entity(i, "gfx/house.png", x, y, renderer, 1, 2, 8);
-				tempTile.TypeID = 1;
+				tempTile = Entity(i, TILE_TYPE_BLOCK, "gfx/house.png", x, y, renderer, 1, 2, 8);
+				//tempTile.TypeID = 1;
 			}
 			else if (tempTile.id == 3) {
-				tempTile = Entity(i, "gfx/house2.png", x, y, renderer, 2, 3, 8);
-				tempTile.TypeID = 1;
+				tempTile = Entity(i, TILE_TYPE_BLOCK, "gfx/house2.png", x, y, renderer, 2, 3, 8);
+				//tempTile.TypeID = 1;
 			
 			}
 
@@ -115,12 +115,15 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
 Entity* Map::GetTile(float X, float Y) {
 	int ID = 0;
 
-	ID = X / TILE_SIZE;
-	ID = ID + (MAP_WIDTH * (Y / TILE_SIZE));
+	ID = abs(X) / TILE_SIZE;
+	ID = ID + (LEVEL_WIDTH * (abs(Y) / TILE_SIZE));
+	printf("GET TILE: %f, %f \n",X,Y);
 
 	if (ID < 0 || ID >= TileList.size()) {
+		printf("ID tile not found in map\n");
 		return NULL;
 	}
-
+	
+	printf("ID tile in map: %d\n",ID);
 	return &TileList[ID];
 }

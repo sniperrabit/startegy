@@ -8,16 +8,11 @@ using namespace std;
 
 std::vector<Entity*>     Entity::EntityList;
 
-std::vector<EntityCol> EntityCol::EntityColList;
 
-EntityCol::EntityCol() {
-	EntityA = NULL;
-	EntityB = NULL;
-}
 
 Entity::Entity() {
 	
-
+	CanJump = false;
 	TypeID = TILE_TYPE_NONE;
 	textureEntity = NULL;
 	surfaceEntity = NULL;
@@ -28,7 +23,9 @@ Entity::Entity() {
 	width = height = 0;
 	AnimState = 0;
 
-
+	
+	MoveUp = false;
+	MoveDown = false;
 	MoveLeft = false;
 	MoveRight = false;
 	Type = ENTITY_TYPE_GENERIC;
@@ -42,10 +39,10 @@ Entity::Entity() {
 	MaxSpeedY = 0.5;
 	CurrentFrameCol = 0;
 	CurrentFrameRow = 0;
-	Col_X = 0;
-	Col_Y = 0;
-	Col_Width = 0;
-	Col_Height = 0;
+	Col_X = SHAPE_SIZE;
+	Col_Y = SHAPE_SIZE;
+	Col_Width = 0.5;
+	Col_Height = 0.5;
 }
 
 Entity::Entity(int id, char* path, int width, int  height) {
@@ -65,8 +62,8 @@ Entity::~Entity() {
 }
 
 
-Entity::Entity(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
-	
+Entity::Entity(int id,int TypeID, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
+	this->TypeID = TypeID;
 	this->surfaceEntity = IMG_Load(File);
 	this->point.x = x;
 	this->point.y = y;
@@ -81,10 +78,16 @@ Entity::Entity(int id, char* File, int x, int y, SDL_Renderer* renderer, int wid
 	Anim_Control.MaxFrames = MaxFrames;
 
 }
+bool Entity::Jump() {
+	if (CanJump == false) return false;
 
+	SpeedY = -MaxSpeedY;
+
+	return true;
+}
 void Entity::OnLoop() {
 	//We're not Moving
-	if (MoveLeft == false && MoveRight == false) {
+	if (MoveLeft == false && MoveRight == false && MoveUp == false && MoveDown == false) {
 		StopMove();
 	}
 
@@ -93,6 +96,15 @@ void Entity::OnLoop() {
 	}
 	if (MoveRight) {
 		AccelX = 0.05;
+	}
+
+	
+
+	if (MoveUp) {
+		AccelY = -0.05;
+	}
+	if (MoveDown) {
+		AccelY = 0.05;
 	}
 
 //	if (Flags & ENTITY_FLAG_GRAVITY) {
@@ -128,9 +140,14 @@ void Entity::OnAnimate() {
 
 	Anim_Control.OnAnimate();
 }
-void Entity::OnCollision(Entity* Entity) {
+bool Entity::OnCollision(Entity* Entity) {
+	Jump();
+
+	return true;
 }
 void Entity::OnMove(float MoveX, float MoveY) {
+	CanJump = false;
+
 	if (MoveX == 0 && MoveY == 0) {
 		return;
 	}
@@ -156,34 +173,38 @@ void Entity::OnMove(float MoveX, float MoveY) {
 	if (MoveY != 0) {
 		if (MoveY >= 0) {
 		//	NewY = FPS::FPSControl.GetSpeedFactor();
-			NewY = 0.5;
+			NewY = 0.1;
 		}
 		else {
 		//	NewY = -FPS::FPSControl.GetSpeedFactor();
-			NewY = -0.5;
+			NewY = -0.1;
 		}
 	}
 
 	while (true) {
 		if (Flags & ENTITY_FLAG_GHOST) {
-			PosValid((int)(point.x + NewX), (int)(point.y + NewY)); //We don't care about collisions, but we need to send events to other entities
+			//PosValid((int)(point.x + NewX), (int)(point.y + NewY)); //We don't care about collisions, but we need to send events to other entities
 
 //			point.x += NewX;
 //			point.y += NewY;
 		}
 		else {
-			if (PosValid((int)(point.x + NewX), (int)(point.y))) {
-
+			printf("Check PosValid FOR X\n");
+			if (PosValid((int)(point.x + NewX+ 0.5), (int)(point.y + 0.9))) {  //+0.5 +0.9 set solid point on center on foot of shape 1x1
+				if(point.x + NewX >=0)//end of map
 				point.x += NewX;
 			}
 			else {
 				SpeedX = 0;
 			}
-
-			if (PosValid((int)(point.x), (int)(point.y + NewY))) {
+			printf("\nCheck PosValid FOR Y\n");
+			if (PosValid((int)(point.x + 0.5 ), (int)(point.y + NewY + 0.9))) {
+				if (point.y + NewY >= 0)//end of map
 				point.y += NewY;
-			}
-			else {
+			}else{
+				if (MoveY > 0) {
+					CanJump = true;
+				}
 				SpeedY = 0;
 			}
 		}
@@ -217,6 +238,20 @@ void Entity::StopMove() {
 		AccelX = 0;
 		SpeedX = 0;
 	}
+
+	if (SpeedY > 0) {
+		AccelY = -0.1;
+	}
+
+	if (SpeedY < 0) {
+		AccelY = 0.1;
+	}
+
+	if (SpeedY < 2.0f && SpeedY > -2.0f) {
+		AccelY = 0;
+		SpeedY = 0;
+	}
+
 }
 bool Entity::Collides(int oX, int oY, int oW, int oH) {
 	int left1, left2;
@@ -250,22 +285,67 @@ bool Entity::Collides(int oX, int oY, int oW, int oH) {
 }
 bool Entity::PosValid(int NewX, int NewY) {
 	bool Return = true;
+	printf("NewX= %d , NewY= %d \n", NewX, NewY);
+	//Simple check tile in cordinates
+	Entity* Tile = Area::AreaControl.GetTile(NewX * TILE_SIZE, NewY * TILE_SIZE);
 
-	int StartX = (NewX + Col_X) /SHAPE_SIZE;
-	int StartY = (NewY + Col_Y) / SHAPE_SIZE;
+	if (PosValidTile(Tile) == false) {
+		Return = false;
+		printf("block\n");
+		printf("Hx=%f , Hy=%f \n", this->point.x, this->point.y);
+		printf("x=%f , y=%f \n", Tile->point.x, Tile->point.y);
+		printf("block\n\n");
+		return  false;
+	}
+	else {
+		printf("--free---\n");
+		printf("Hx=%f , Hy=%f \n", this->point.x, this->point.y);
+		printf("x=%f , y=%f \n", Tile->point.x, Tile->point.y);
+		printf("--free---\n\n");
+	}
 
-	int EndX = ((NewX + Col_X) + width - Col_Width - 1) / SHAPE_SIZE;
-	int EndY = ((NewY + Col_Y) + height - Col_Height - 1) / SHAPE_SIZE;
 
+
+//	int StartX = (NewX + Col_X) /SHAPE_SIZE;
+//	int StartY = (NewY + Col_Y) / SHAPE_SIZE;
+//	int StartX = NewX;
+//	int StartY = NewY;
+//	int StartX = NewX;
+//	int StartY = NewY;
+//	printf("StartX= %d , StartY= %d \n", StartX, StartY);
+//	int EndX = 1;
+//	int EndY = 0;
+
+	//int EndX = ((NewX + 10) + 64 - 20 - 1) / TILE_SIZE;
+	//int EndY = ((NewY + 10) + 64 - 20 - 1) / TILE_SIZE;
+	//int EndX = ((NewX + 10) + width - Col_Width - 1) / SHAPE_SIZE;
+	//int EndY = ((NewY + 10) + height - Col_Height - 1) / SHAPE_SIZE;
+	//int EndX = ((NewX + Col_X) + SHAPE_SIZE - Col_Width - 1) / SHAPE_SIZE;
+	//int EndY = ((NewY + Col_Y) + SHAPE_SIZE - Col_Height - 1) / SHAPE_SIZE;
+	//int EndX = StartX + 1;
+	//int EndY = StartY + 1;
+/*
 	for (int iY = StartY; iY <= EndY; iY++) {
 		for (int iX = StartX; iX <= EndX; iX++) {
-			Entity* Tile = Area::AreaControl.GetTile(iX * SHAPE_SIZE, iY * SHAPE_SIZE);
+			Entity* Tile = Area::AreaControl.GetTile(iX * TILE_SIZE, iY * TILE_SIZE);
 
 			if (PosValidTile(Tile) == false) {
 				Return = false;
+				printf("block\n");
+				printf("Hx=%f , Hy=%f \n", this->point.x, this->point.y);
+				printf("x=%f , y=%f \n", Tile->point.x, Tile->point.y);
+				printf("block\n\n");
+				return  false;
+			}
+			else {
+				printf("--free---\n");
+				printf("Hx=%f , Hy=%f \n", this->point.x, this->point.y);
+				printf("x=%f , y=%f \n", Tile->point.x, Tile->point.y);
+				printf("--free---\n\n");
 			}
 		}
 	}
+
 
 	if (Flags & ENTITY_FLAG_MAPONLY) {
 	}
@@ -276,7 +356,7 @@ bool Entity::PosValid(int NewX, int NewY) {
 			}
 		}
 	}
-
+*/
 	return Return;
 }
 bool Entity::PosValidTile(Entity* Tile) {

@@ -17,19 +17,27 @@ CSurface::CSurface() {
 }
 */
 bool CSurface::OnDraw(SDL_Renderer* renderer, Hero hero, Point &p, int X2, int Y2, int W, int H) {
+	
 	Point tmp = p.twoDToIso(&p);
+/*
+	SDL_Rect dst;
+	dst.x = tmp.x*SHAPE_SIZE; //+(LEVEL_WIDTH*SHAPE_SIZE);
+	dst.y = tmp.y * SHAPE_SIZE; //+(LEVEL_WIDTH*SHAPE_SIZE);
+	dst.w = SHAPE_SIZE * 2 ;
+	dst.h = SHAPE_SIZE ;
+	*/
 
 	SDL_Rect dst;
-	dst.x = tmp.x*SHAPE_SIZE;
-	dst.y = tmp.y * SHAPE_SIZE;
-	dst.w = SHAPE_SIZE * 2;
-	dst.h = SHAPE_SIZE;
-	
+	dst.x = tmp.x*SHAPE_SIZE; 
+	dst.y = (tmp.y *SHAPE_SIZE) - ((H*SHAPE_SIZE) - SHAPE_SIZE); 
+	dst.w = W*SHAPE_SIZE * 2;
+	dst.h = H*SHAPE_SIZE;
+
 	SDL_Rect SrcR;
 	SrcR.x = X2;
 	SrcR.y = Y2;
-	SrcR.w = W;
-	SrcR.h = H;
+	SrcR.w = W*SHAPE_SIZE;
+	SrcR.h = H*SHAPE_SIZE;
 
 //	SDL_FreeSurface(Surf_Temp);
 //	SDL_UpdateTexture(hero.textureEntity, NULL, hero.surfaceEntity->pixels, hero.surfaceEntity->pitch);
