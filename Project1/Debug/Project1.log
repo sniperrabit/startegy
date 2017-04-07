@@ -1,39 +1,19 @@
-﻿  Entity.cpp
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(44): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(45): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(68): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(69): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(95): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(98): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(104): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(107): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(116): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(117): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(195): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(203): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(212): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(213): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(230): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(234): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(243): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(247): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(403): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\entity.cpp(404): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  Map.cpp
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(77): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(95): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(96): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(99): warning C4018: '>=': signed/unsigned mismatch
+  CSurface.cpp
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\csurface.cpp(18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\csurface.cpp(19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Area.cpp
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(69): warning C4018: '<': signed/unsigned mismatch
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(42): warning C4101: 'tilePath': unreferenced local variable
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(154): warning C4018: '>=': signed/unsigned mismatch
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Hero.cpp
-  Render.cpp
-  Map.cpp
-  CSurface.cpp
-  CApp_OnLoop.cpp
-  CApp_OnInit.cpp
-  CApp_OnEvent.cpp
-  CApp_OnCleanup.cpp
   Main.cpp
+c:\users\rafal\desktop\01_hello_sdl\01_hello_sdl\main.cpp(36): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

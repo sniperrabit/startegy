@@ -57,34 +57,13 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 		}
 		fscanf_s(FileHandle, "\n");
 	}
-
-	fclose(FileHandle);
-/*
-	int i = 0;
-	for (int y = 0; y < LEVEL_HEIGHT; y++) {
-		for (int x = 0; x < LEVEL_WIDTH; x++) {
-			Entity tempTile;
-
-			tempTile = Entity(i, "gfx/grass2.png", x, y, renderer, 1, 1, 8);
-			tempTile.id = i;
-			tempTile.TypeID = 1;
-			TileList.push_back(tempTile);
-			i++;
-		}
-		
-	}
-	*/
-	return true;
+fclose(FileHandle);
+return true;
 }
 //MapX and MapY arguments. These tell use where to render this map on the screen. 
 void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
-	//if (Surf_Tileset == NULL) return;
-
-//	int TilesetWidth = 64 / SHAPE_SIZE;
-//	int TilesetHeight = 64 / SHAPE_SIZE;
 
 	int ID = 0;
-
 	for (int Y = 0; Y < LEVEL_HEIGHT; Y++) {
 		for (int X = 0; X < LEVEL_WIDTH; X++) {
 			if (TileList[ID].TypeID == TILE_TYPE_NONE) {
@@ -92,8 +71,7 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
 				continue;
 			}
 			Point* p = new Point(0,0);
-			
-			
+						
 //			int tX = MapX + (X * SHAPE_SIZE);
 //			int tY = MapY + (Y * SHAPE_SIZE);
 			 p->x = MapX + (X);
@@ -104,8 +82,7 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
 			int TilesetY = (TileList[ID].id / TileList[ID].height) * SHAPE_SIZE;
 		
 			//render one tile
-			Main::renderMap(renderer,TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);
-		//	CSurface::OnDraw( Surf_Tileset, tX, tY, TilesetX, TilesetY, SHAPE_SIZE, SHAPE_SIZE);
+			Main::renderMap(renderer,TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);		
 
 			ID++;
 		}

@@ -2,15 +2,17 @@
 
 std::vector<EntityCol> EntityCol::EntityColList;
 
-EntityCol::EntityCol() {
-	this->EntityA = NULL;
-	this->EntityB = NULL;
-}
-
 class EntityCol
 {
 public:
 	EntityCol();
 	~EntityCol();
 };
+
+EntityCol::EntityCol() {
+	this->EntityA = NULL;
+	this->EntityB = NULL;
+}
+
+
 

@@ -2,8 +2,6 @@
 #define _HERO_H_
 
 #include <vector>
-
-//#include "CAnimation.h"
 #include "Point.h"
 #include <map>
 #include <string>
@@ -14,7 +12,6 @@ using namespace std;
 class Hero : public Entity {
 public:
 	Hero();
-protected:
 	
 public:
 	/*CAnimation      Anim_Control;
@@ -30,7 +27,6 @@ public:
 	int             height;
 	int             AnimState;
 	int MaxFrames;*/
-public:
 	
 	//Hero(int id, char* path, int x, int y, int width, int  height);
 

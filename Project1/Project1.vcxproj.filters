@@ -45,7 +45,7 @@
     <ClInclude Include="FPS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CEntityCol.h">
+    <ClInclude Include="EntityCol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClCompile Include="FPS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CEntityCol.cpp">
+    <ClCompile Include="EntityCol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

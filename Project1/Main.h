@@ -30,62 +30,25 @@ private:
 	SDL_Surface*    Surf_Display;
 	SDL_Surface*    Surf_Test;
 	
-	Point levelPoints[LEVEL_WIDTH*LEVEL_HEIGHT];
-
-	int levelGround[LEVEL_WIDTH][LEVEL_HEIGHT] = {
-		{ 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1 },
-	};
-
-	int levelItems[LEVEL_WIDTH][LEVEL_HEIGHT] = {
-		{ 0, 0, 0, 0, 0, 0 },
-		{ 2, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 3, 0, 0, 2 },
-		{ 0, 2, 0, 0, 2, 0 },
-		{ 0, 0, 0, 0, 0, 2 },
-	};
-
-//	Entity         Entity1;
-//	Entity         Entity2;
-//	Entity         Entity3;
-	
 	std::map <int, Entity> EntityMap;
-public:
-	Hero			Hero1;
+public:	
 	CAnimation      Anim_Yoshi;
 	SDL_Renderer* renderer;
-
 	Hero    Hero3;
-	Hero    Hero2;
-
-	Main();
 	
-	int OnExecute();
 
-public:
-	
-	bool OnInit();
-
-	SDL_Texture * prepareRenderItems(SDL_Renderer * renderer, int i, map <int, Entity> &EntityMap);
+	Main();	
+	int OnExecute();	
+	bool OnInit();	
 	void OnEvent(SDL_Event* Event);
 	void OnLoop();
 
-	void renderItem(SDL_Texture *tex, SDL_Renderer *ren,Point* p, int size, int w, int h);
-
-	void render(SDL_Renderer * renderer,  int size);
-	static void renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size, int w, int h);
 	
+	void render(SDL_Renderer * renderer,  int size);
+	static void renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size, int w, int h);	
 
 	void OnCleanup();
-
-
-	void renderGround(SDL_Texture * tex, SDL_Renderer * ren, Point * p, int size, int w, int h);
-
+	
 	
 };
 

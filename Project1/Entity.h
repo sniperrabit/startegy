@@ -34,72 +34,67 @@ enum {
 };
 
 class Entity {
-protected:
-	
+
+protected:	
+	float	SpeedX;
+	float	SpeedY;
+	float	AccelX;
+	float	AccelY;
+	int		Col_X;
+	int		Col_Y;
+	int		Col_Width;
+	int		Col_Height;
+	bool	CanJump;
+
+	bool     PosValid(int NewX, int NewY);
+	bool     PosValidTile(Entity* Tile);
+	bool     PosValidEntity(Entity* Entity, int NewX, int NewY);
+
 public:
 	static std::vector<Entity*>    EntityList;
+
 	CAnimation      Anim_Control;
 	int             AnimState;
 
 	int		id;
-	char* path;
-	Point         point;
+	char*	path;
+	Point	point;
 	int     TypeID;
-	float           Isox;
-	float           Isoy;
-	int             width;
-	int             height;
-	
-	SDL_Surface *surfaceEntity;
+	float	Isox;
+	float	Isoy;
+	int		width;
+	int		height;
+
+	SDL_Surface*	surfaceEntity;
 	SDL_Texture*    textureEntity;
-	int MaxFrames;
-
-	bool MoveUp;
-	bool MoveDown;
-	bool        MoveLeft;
-	bool        MoveRight;
-	int        Type;
-	bool        Dead;
-	int        Flags;
-	float        MaxSpeedX;
-	float        MaxSpeedY;
-	int          CurrentFrameCol;
-	int          CurrentFrameRow;
-protected:
+	int		MaxFrames;
 	
-	float        SpeedX;
-	float        SpeedY;
-	float        AccelX;
-	float        AccelY;
-	int        Col_X;
-	int        Col_Y;
-	int        Col_Width;
-	int        Col_Height;
-protected:
-	bool    CanJump;
+	bool	MoveUp;
+	bool	MoveDown;
+	bool	MoveLeft;
+	bool	MoveRight;
+	int		Type;
+	bool	Dead;
+	int		Flags;
+	float	MaxSpeedX;
+	float	MaxSpeedY;
+	int		CurrentFrameCol;
+	int		CurrentFrameRow;
 
-public:
-	bool     Jump();
-public:
+	bool	Jump();
 	Entity();
 	Entity(int id, char* path,  int width, int  height);
 	Entity(int id, int TypeID, char* File, int x, int y, SDL_Renderer* renderer, int Width, int Height, int MaxFrames);
 	virtual ~Entity();
 	virtual bool OnCollision(Entity* Entity);
-	void OnAnimate();
+	void	OnAnimate();
 	void    OnMove(float MoveX, float MoveY);
 	virtual bool OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames);
-	void     StopMove();
-	void OnLoop();
-public:
+	void	StopMove();
+	void	OnLoop();
 	bool    Collides(int oX, int oY, int oW, int oH);
-
-private:
-	bool     PosValid(int NewX, int NewY);
-
-	bool     PosValidTile(Entity* Tile);
-
-	bool     PosValidEntity(Entity* Entity, int NewX, int NewY);
+	
+	
 };
 
 
