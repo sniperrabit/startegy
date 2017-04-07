@@ -11,10 +11,12 @@ public:
 	static Area            AreaControl;
 
 public:
-	std::vector<Map>       MapList;
+	std::vector<Map> MapList;
+	std::vector<Map> BuildingMapList;
+	
 
-	Map*    GetMap(int X, int Y);
-	Entity*    GetTile(int X, int Y);
+	Map*    GetMap(std::vector<Map>& objectMapList, int X, int Y);
+	Entity*    GetTile(std::vector<Map>& objectMapList, int X, int Y);
 
 private:
 	int                     AreaSize;
@@ -22,11 +24,11 @@ private:
 	SDL_Surface*        Surf_Tileset;
 	SDL_Texture*  textureTile;
 public:
-	Area();
+	Area();	
 
-	bool    OnLoad(char* File, SDL_Renderer* renderer);
+	bool    OnLoad(char* File, std::vector<Map>& objectMapList, SDL_Renderer* renderer);
 
-	void    OnRender(SDL_Renderer *renderer, int CameraX, int CameraY);
+	void    OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, int CameraX, int CameraY);
 
 	void    OnCleanup();
 

@@ -55,7 +55,8 @@ void Main::render(SDL_Renderer *renderer,int size) {
 	SDL_Texture* texture=NULL;
 
 
-	Area::AreaControl.OnRender(renderer,Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+	Area::AreaControl.OnRender(renderer, Area::AreaControl.MapList, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+	Area::AreaControl.OnRender(renderer, Area::AreaControl.BuildingMapList, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
 
 	
 

@@ -31,8 +31,12 @@ bool Main::OnInit() {
 		SDL_Quit();
 		return false;
 	}
-
-	if (Area::AreaControl.OnLoad("maps/1area.txt", renderer) == false) {
+		
+	
+	if (Area::AreaControl.OnLoad("layers/ground/1area.txt", Area::AreaControl.MapList, renderer) == false) {
+		return false;
+	}
+	if (Area::AreaControl.OnLoad("layers/building/1area.txt", Area::AreaControl.BuildingMapList, renderer) == false) {
 		return false;
 	}
 	

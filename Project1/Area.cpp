@@ -23,8 +23,8 @@ string ExePath2() {
 	return string(buffer).substr(0, pos);
 }
 
-bool Area::OnLoad(char* File, SDL_Renderer* renderer) {
-	MapList.clear();
+bool Area::OnLoad(char* File, std::vector<Map> & objectMapList, SDL_Renderer* renderer ) {
+	objectMapList.clear();
 	
 	char result[200];   // array to hold the result.
 
@@ -32,17 +32,14 @@ bool Area::OnLoad(char* File, SDL_Renderer* renderer) {
 	strcat_s(result, "\\");// copy string one into the result.
 	strcat_s(result, File); // append string two to the result.
 
-
 	FILE* FileHandle;
 	
 	fopen_s(&FileHandle, result, "r");
-
 	if (FileHandle == NULL) {
 		return false;
 	}
 
 	char tilePath[255];
-
 
 	//.png
 	//fscanf_s(FileHandle, "%s\n", &tilePath);
@@ -64,20 +61,34 @@ bool Area::OnLoad(char* File, SDL_Renderer* renderer) {
 
 	fscanf_s(FileHandle, "%d\n", &AreaSize);	
 	//3x3
-	
+
+	char file[40];
+	char shortfile[40];
+	strcpy_s(file, File);
+	int i ;
+	for (i = 0; i < strlen(file)-9;i++) { //-9 remove "area1.txt"
+		shortfile[i]=file[i];
+	}
+	shortfile[i] = '\0';
+
 	for (int X = 0; X < AreaSize; X++) {
 		for (int Y = 0; Y < AreaSize; Y++) {
-			char MapFile[20];
 			
+			//cat path to maps files			
+
+			//get files name from Map file
+			char MapFile[20];
+			char path[40];
+
+			strcpy_s(path, shortfile);
 			fscanf_s(FileHandle, "%s", MapFile, 20);
 
-			char fullPath[25];  
-			strcpy_s(fullPath, MapFile);
-			strcat_s(fullPath, ".txt");
+			strcat_s(path, MapFile);
+			strcat_s(path, ".txt");
 
 			//set tileset vector with id (Entity)
 			Map tempMap;
-			if (tempMap.OnLoad(fullPath,renderer) == false) {
+			if (tempMap.OnLoad(path,renderer) == false) {
 				fclose(FileHandle);
 				return false;
 			}
@@ -86,7 +97,7 @@ bool Area::OnLoad(char* File, SDL_Renderer* renderer) {
 			tempMap.Surf_Tileset = Surf_Tileset;
 
 			//add to map list this map
-			MapList.push_back(tempMap);
+			objectMapList.push_back(tempMap);
 		}
 		fscanf_s(FileHandle, "\n");
 	}	
@@ -95,7 +106,7 @@ bool Area::OnLoad(char* File, SDL_Renderer* renderer) {
 	return true;
 }
 
-void Area::OnRender(SDL_Renderer *renderer, int CameraX, int CameraY) {
+void Area::OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, int CameraX, int CameraY) {
 	int MapWidth = LEVEL_WIDTH ;//6*64//384
 	int MapHeight = LEVEL_HEIGHT;
 
@@ -117,8 +128,11 @@ void Area::OnRender(SDL_Renderer *renderer, int CameraX, int CameraY) {
 		//Render all maps
 		int X = ((i % AreaSize) * MapWidth) + CameraX;
 		int Y = ((i / AreaSize) * MapHeight) + CameraY;
-		MapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT);
+		objectMapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT);
 	}
+
+	
+	
 }
 
 void Area::OnCleanup() {
@@ -127,29 +141,30 @@ void Area::OnCleanup() {
 	}
 
 	MapList.clear();
+	BuildingMapList.clear();
 }
 
-Map* Area::GetMap(int X, int Y) {
+Map* Area::GetMap(std::vector<Map>& objectMapList, int X, int Y) {
 	int MapWidth = LEVEL_WIDTH * TILE_SIZE;//6x16
 	int MapHeight = LEVEL_HEIGHT * TILE_SIZE;//6x16
 
 	int ID = X / MapWidth;
 	ID = ID + ((Y / MapHeight) * AreaSize);//x3
 	printf("GET MAP ID: %d \n",ID);
-	if (ID < 0 || ID >= MapList.size()) {
+	if (ID < 0 || ID >= objectMapList.size()) {
 		return NULL;
 	}
 
-	return &MapList[ID];
+	return &objectMapList[ID];
 }
 
-Entity* Area::GetTile(int X, int Y) {
+Entity* Area::GetTile(std::vector<Map>& objectMapList, int X, int Y) {
 	int MapWidth = LEVEL_WIDTH * TILE_SIZE;
 	int MapHeight = LEVEL_HEIGHT * TILE_SIZE;
 	X = abs(X);
 	Y = abs(Y);
 
-	Map* Map = GetMap(X, Y);
+	Map* Map = GetMap(objectMapList, X, Y);
 
 	if (Map == NULL) return NULL;
 

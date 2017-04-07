@@ -287,7 +287,11 @@ bool Entity::PosValid(int NewX, int NewY) {
 	bool Return = true;
 	printf("NewX= %d , NewY= %d \n", NewX, NewY);
 	//Simple check tile in cordinates
-	Entity* Tile = Area::AreaControl.GetTile(NewX * TILE_SIZE, NewY * TILE_SIZE);
+
+	//uncomment if want to have collisions with ground and add some code after
+//	Entity* Tile = Area::AreaControl.GetTile(Area::AreaControl.MapList, NewX * TILE_SIZE, NewY * TILE_SIZE);
+
+	Entity* Tile = Area::AreaControl.GetTile(Area::AreaControl.BuildingMapList, NewX * TILE_SIZE, NewY * TILE_SIZE);
 
 	if (PosValidTile(Tile) == false) {
 		Return = false;

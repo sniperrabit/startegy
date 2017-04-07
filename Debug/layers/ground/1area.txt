@@ -1,0 +1,5 @@
+gfx/grass.png
+3
+1map 2map 2map
+2map 2map 1map
+2map 2map 3map
