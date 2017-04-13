@@ -22,7 +22,7 @@ enum {
 
 enum {
 	ENTITY_TYPE_GENERIC = 0,
-	ENTITY_TYPE_PLAYER
+	ENTITY_TYPE_PLAYER = 1
 };
 
 enum {
@@ -51,7 +51,7 @@ protected:
 	bool     PosValidEntity(Entity* Entity, int NewX, int NewY);
 
 public:
-	static std::vector<Entity*>    EntityList;
+	//static std::vector<Entity*>    EntityList;
 
 	CAnimation      Anim_Control;
 	int             AnimState;
@@ -68,7 +68,7 @@ public:
 	SDL_Surface*	surfaceEntity;
 	SDL_Texture*    textureEntity;
 	int		MaxFrames;
-	
+	Entity* heroPtr;
 	bool	MoveUp;
 	bool	MoveDown;
 	bool	MoveLeft;
@@ -89,7 +89,7 @@ public:
 	virtual bool OnCollision(Entity* Entity);
 	void	OnAnimate();
 	void    OnMove(float MoveX, float MoveY);
-	virtual bool OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames);
+	virtual bool OnLoad(int id, int TypeID, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames);
 	void	StopMove();
 	void	OnLoop();
 	bool    Collides(int oX, int oY, int oW, int oH);

@@ -1,6 +1,7 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 #include "Entity.h"
+#include "Main.h"
 #include <SDL.h>
 #include <vector>
 
@@ -21,7 +22,7 @@ public:
 public:
 	bool OnLoad(char* File, SDL_Renderer* renderer);
 
-	void OnRender(SDL_Renderer *renderer, int MapX, int MapY);
+	void OnRender(SDL_Renderer *renderer, int MapX, int MapY,  Entity &entity = Entity());
 	
 };
 

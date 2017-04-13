@@ -1,19 +1,11 @@
-﻿  Map.cpp
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(77): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(95): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(96): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(99): warning C4018: '>=': signed/unsigned mismatch
-  CSurface.cpp
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\csurface.cpp(18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\csurface.cpp(19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Area.cpp
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(69): warning C4018: '<': signed/unsigned mismatch
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(42): warning C4101: 'tilePath': unreferenced local variable
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(154): warning C4018: '>=': signed/unsigned mismatch
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\area.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
-c:\users\rafal\desktop\01_hello_sdl\01_hello_sdl\main.cpp(36): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  Render.cpp
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(46): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(85): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

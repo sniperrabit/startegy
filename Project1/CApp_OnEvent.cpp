@@ -4,38 +4,43 @@ void Main::OnEvent(SDL_Event* Event) {
 	if (Event->type == SDL_QUIT) {
 		Running = false;
 	}
+
+	Entity * heroPtr;
+	heroPtr = &Area::AreaControl.EntityList.front();
+
+
 	if (Event->type == SDL_KEYDOWN) {
 		switch (Event->key.keysym.scancode) {
 		case SDL_SCANCODE_DOWN:
 			//Camera::CameraControl.OnMove(-1, -1);	//from isometric  to cartezjan	
-			Hero3.MoveDown = true;
-			Hero3.MoveUp = false;
+			heroPtr->MoveDown = true;
+			heroPtr->MoveUp = false;
 
-			Hero3.point.y += 0.01;
+			heroPtr->point.y += 0.01;
 			break;
 		case SDL_SCANCODE_UP:
 			//Camera::CameraControl.OnMove(1, 1);
-			Hero3.MoveDown = false;
-			Hero3.MoveUp = true;
-			if (Hero3.point.y - 0.01 >= 0)
-			Hero3.point.y -= 0.01;
+			heroPtr->MoveDown = false;
+			heroPtr->MoveUp = true;
+			if (heroPtr->point.y - 0.01 >= 0)
+				heroPtr->point.y -= 0.01;
 			break;
 		case SDL_SCANCODE_LEFT:
-			Hero3.MoveLeft = true;
-			Hero3.MoveRight = false;
+			heroPtr->MoveLeft = true;
+			heroPtr->MoveRight = false;
 
-			if (Hero3.point.x - 0.01 >= 0)
-			Hero3.point.x -= 0.01;//lenghtOfStep
+			if (heroPtr->point.x - 0.01 >= 0)
+				heroPtr->point.x -= 0.01;//lenghtOfStep
 			//Camera::CameraControl.OnMove(1, -1);
 			break;
 		case SDL_SCANCODE_RIGHT:
-			Hero3.MoveLeft = false;
-			Hero3.MoveRight = true;
+			heroPtr->MoveLeft = false;
+			heroPtr->MoveRight = true;
 			//Camera::CameraControl.OnMove(-1, 1);
-			Hero3.point.x += 0.01;
+			heroPtr->point.x += 0.01;
 			break;
 		case SDLK_SPACE: 
-			Hero3.Jump();
+			heroPtr->Jump();
 			break;
 		
 		case SDLK_ESCAPE:
@@ -48,21 +53,21 @@ void Main::OnEvent(SDL_Event* Event) {
 	if (Event->type == SDL_KEYUP) {
 		switch (Event->key.keysym.scancode) {
 		case SDL_SCANCODE_DOWN:
-			Hero3.MoveDown = false;
-			Hero3.MoveUp = false;
+			heroPtr->MoveDown = false;
+			heroPtr->MoveUp = false;
 			break;
 		case SDL_SCANCODE_UP:
-			Hero3.MoveDown = false;
-			Hero3.MoveUp = false;
+			heroPtr->MoveDown = false;
+			heroPtr->MoveUp = false;
 			break;
 		case SDL_SCANCODE_LEFT:
-			Hero3.MoveLeft = false;
-			Hero3.MoveRight = false;
+			heroPtr->MoveLeft = false;
+			heroPtr->MoveRight = false;
 
 			break;
 		case SDL_SCANCODE_RIGHT:
-			Hero3.MoveLeft = false;
-			Hero3.MoveRight = false;
+			heroPtr->MoveLeft = false;
+			heroPtr->MoveRight = false;
 
 			break;
 		case SDLK_ESCAPE:

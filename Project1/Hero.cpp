@@ -24,7 +24,8 @@ Hero::Hero() {
 
 
 bool Hero::OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
-	if (Entity::OnLoad( id,  File,  x,  y,  renderer, width,  height, MaxFrames) == false) {
+	if (Entity::OnLoad(id, 1, File, x, y, renderer, width, height, MaxFrames) == false) {
+		
 		return false;
 	}
 

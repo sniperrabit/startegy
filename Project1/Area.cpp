@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 Area Area::AreaControl;
 
 Area::Area() {
@@ -106,12 +105,13 @@ bool Area::OnLoad(char* File, std::vector<Map> & objectMapList, SDL_Renderer* re
 	return true;
 }
 
-void Area::OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, int CameraX, int CameraY) {
+void Area::OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, int CameraX, int CameraY,Entity &hero,int  idMapHero) {
 	int MapWidth = LEVEL_WIDTH ;//6*64//384
 	int MapHeight = LEVEL_HEIGHT;
 
 	int FirstID = -CameraX / MapWidth;//Id of title field
 	FirstID = FirstID + ((-CameraY / MapHeight) * AreaSize);
+
 
 	//Every time render only 4 maps
 	for (int i = 0; i < 9; i++) {
@@ -128,7 +128,12 @@ void Area::OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, in
 		//Render all maps
 		int X = ((i % AreaSize) * MapWidth) + CameraX;
 		int Y = ((i / AreaSize) * MapHeight) + CameraY;
-		objectMapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT);
+		if (hero.id!=NULL && idMapHero == i) {
+			objectMapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT, hero);
+		}
+		else {
+			objectMapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT);
+		}
 	}
 
 	

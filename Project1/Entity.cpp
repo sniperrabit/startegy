@@ -5,15 +5,10 @@
 #include <SDL_image.h>
 using namespace std;
 
-
-std::vector<Entity*>     Entity::EntityList;
-
-
-
 Entity::Entity() {
 	
 	CanJump = false;
-	TypeID = TILE_TYPE_NONE;
+	TypeID = NULL;
 	textureEntity = NULL;
 	surfaceEntity = NULL;
 	id = NULL;
@@ -22,7 +17,7 @@ Entity::Entity() {
 	path = "";
 	width = height = 0;
 	AnimState = 0;
-
+	Entity* heroPtr = NULL;
 	
 	MoveUp = false;
 	MoveDown = false;
@@ -57,6 +52,9 @@ Entity::Entity(int id, char* path, int width, int  height) {
 	this->height = height;
 
 	this->AnimState = NULL;
+	CurrentFrameCol = 0;
+	CurrentFrameRow = 0;
+	Entity* heroPtr = NULL;
 }
 Entity::~Entity() {
 }
@@ -74,10 +72,65 @@ Entity::Entity(int id,int TypeID, char* File, int x, int y, SDL_Renderer* render
 
 	this->width = width;
 	this->height = height;
+	
+	Anim_Control.MaxFrames = MaxFrames;
+	CurrentFrameCol = 0;
+	CurrentFrameRow = 0;
+}
+bool Entity::OnLoad(int id, int TypeID, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+		return false;
+	}
+	if (IMG_Init(IMG_INIT_PNG) < 0) {
+		return false;
+	}
+	this->surfaceEntity = IMG_Load(File);
+
+	//	SDL_Surface*    Surf_Hero2;
+	//	Surf_Hero2 = IMG_Load(File);
+	this->id = id;
+	this->point.x = x;
+	this->point.y = y;
+	this->TypeID = TypeID;
+	this->textureEntity = SDL_CreateTextureFromSurface(renderer, surfaceEntity);
+
+	//	CSurface::Transparent(Surf_Hero, 255, 0, 255);
+
+	this->width = width;
+	this->height = height;
 
 	Anim_Control.MaxFrames = MaxFrames;
 
+	CanJump = false;
+	
+
+	Isox = Isoy = 0.0f;
+	path = File;
+	
+	AnimState = 0;
+	MoveUp = false;
+	MoveDown = false;
+	MoveLeft = false;
+	MoveRight = false;
+	Type = ENTITY_TYPE_GENERIC;
+	Dead = false;
+	
+	SpeedX = 0;
+	SpeedY = 0;
+	AccelX = 0;
+	AccelY = 0;
+	MaxSpeedX = 0.5;
+	MaxSpeedY = 0.5;
+	CurrentFrameCol = 0;
+	CurrentFrameRow = 0;
+	Col_X = SHAPE_SIZE;
+	Col_Y = SHAPE_SIZE;
+	Col_Width = 0.5;
+	Col_Height = 0.5;
+	return true;
 }
+
+
 bool Entity::Jump() {
 	if (CanJump == false) return false;
 
@@ -96,9 +149,7 @@ void Entity::OnLoop() {
 	}
 	if (MoveRight) {
 		AccelX = 0.05;
-	}
-
-	
+	}	
 
 	if (MoveUp) {
 		AccelY = -0.05;
@@ -129,14 +180,22 @@ void Entity::OnLoop() {
 }
 
 void Entity::OnAnimate() {
+
+
 	if (MoveLeft) {
 		CurrentFrameCol = 0;
 	}
-	else
+	else if (MoveRight) {
+		CurrentFrameCol = 1;
+	}
+	if (SpeedX != 0) {
+		Anim_Control.MaxFrames = 8;
+	}
+	else {
+		Anim_Control.MaxFrames = 0;
+	}
 
-		if (MoveRight) {
-			CurrentFrameCol = 1;
-		}
+
 
 	Anim_Control.OnAnimate();
 }
@@ -392,28 +451,3 @@ bool Entity::PosValidEntity(Entity* Entity, int NewX, int NewY) {
 	return true;
 }
 
-bool Entity::OnLoad(int id, char* File, int x, int y, SDL_Renderer* renderer, int width, int height, int MaxFrames) {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		return false;
-	}
-	if (IMG_Init(IMG_INIT_PNG) < 0) {
-		return false;
-	}
-	this->surfaceEntity = IMG_Load(File);
-	
-	//	SDL_Surface*    Surf_Hero2;
-	//	Surf_Hero2 = IMG_Load(File);
-	this->point.x = x;
-	this->point.y = y;
-
-	this->textureEntity = SDL_CreateTextureFromSurface(renderer, surfaceEntity);
-
-	//	CSurface::Transparent(Surf_Hero, 255, 0, 255);
-
-	this->width = width;
-	this->height = height;
-
-	Anim_Control.MaxFrames = MaxFrames;
-
-	return true;
-}

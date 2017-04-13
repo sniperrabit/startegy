@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <math.h>
 using namespace std;
 
 
@@ -37,7 +38,11 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 			Entity tempTile;
 
 			fscanf_s(FileHandle, "%d ", &tempTile.id);
-			if (tempTile.id==1){
+			if (tempTile.id == 0) {
+				tempTile = Entity(i, TILE_TYPE_NONE, "gfx/grass2.png", x, y, renderer, 1, 1, 8);
+				//tempTile.TypeID = 0;
+			}
+			else if (tempTile.id==1){
 				tempTile = Entity(i, TILE_TYPE_NORMAL, "gfx/grass2.png", x, y, renderer, 1, 1, 8);
 				//tempTile.TypeID = 1;
 			}
@@ -50,6 +55,17 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 				//tempTile.TypeID = 1;
 			
 			}
+			else if (tempTile.id == 9) { //HERO		
+				tempTile =Entity();
+			//	tempTile =new Entity(i, ENTITY_TYPE_PLAYER, "gfx/yoshi2.png", x, y, renderer, 1, 1, 8);			
+				tempTile.OnLoad(i, ENTITY_TYPE_PLAYER, "gfx/yoshi2.png", x, y, renderer, 1, 1, 8);
+				
+				Area::AreaControl.EntityList.push_back(tempTile);
+				//tempTile.TypeID = 9;
+			//	Entity* enPtr;
+			//	enPtr=&Area::AreaControl.EntityList.back();
+				tempTile.heroPtr = &tempTile;
+			}
 
 			i++;
 
@@ -61,12 +77,14 @@ fclose(FileHandle);
 return true;
 }
 //MapX and MapY arguments. These tell use where to render this map on the screen. 
-void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
+void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 
 	int ID = 0;
 	for (int Y = 0; Y < LEVEL_HEIGHT; Y++) {
 		for (int X = 0; X < LEVEL_WIDTH; X++) {
-			if (TileList[ID].TypeID == TILE_TYPE_NONE) {
+
+
+			if (TileList[ID].TypeID == TILE_TYPE_NONE) {//Empty tile, not render
 				ID++;
 				continue;
 			}
@@ -81,10 +99,49 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY) {
 			int TilesetX = (TileList[ID].id % TileList[ID].width) * SHAPE_SIZE;
 			int TilesetY = (TileList[ID].id / TileList[ID].height) * SHAPE_SIZE;
 		
-			//render one tile
-			Main::renderMap(renderer,TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);		
+			int hy = (int)floor(hero.point.y);
+			int hx = (int)floor(hero.point.x);
+			if (hero.TypeID ==ENTITY_TYPE_PLAYER && (hy == Y && hx == X)){
+				
+				hero.point.x -= Camera::CameraControl.GetX();
+				hero.point.y -= Camera::CameraControl.GetY();
+				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET
+																								//	Hero h =(Hero) Entity::EntityList[0];
+				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * 64, (hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * 64, hero.width, hero.height);
 
-			ID++;
+				delete p;
+				ID++;
+				
+			}else {
+
+				//render one tile
+				Main::renderMap(renderer, TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);
+
+				delete p;
+				ID++;
+			}
+		//	if (TileList[ID].TypeID == ENTITY_TYPE_PLAYER) {//Empty tile, not render
+
+			//	Main::MainCache.Hero3.point.x -= Camera::CameraControl.GetX();
+			//	Main::MainCache.Hero3.point.y -= Camera::CameraControl.GetY();
+			//	Point* p = new Point(Main::MainCache.Hero3.point.x+LEVEL_WIDTH, Main::MainCache.Hero3.point.y - LEVEL_HEIGHT);//OFFSET
+			//	Hero h =(Hero) Entity::EntityList[0];
+			//		CSurface::OnDraw(renderer, h, *p, Hero3.CurrentFrameCol * 64,
+			//			(Hero3.CurrentFrameRow +Hero3.Anim_Control.GetCurrentFrame()) * 64, Hero3.width, Hero3.height);
+
+				/*
+				Entity hero;
+				hero= Area::AreaControl.EntityList.front();
+				hero.point.x -= Camera::CameraControl.GetX();
+				hero.point.y -= Camera::CameraControl.GetY();
+				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET																															
+				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * 64,( hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * 64, hero.width, hero.height);
+				
+				delete p;
+				ID++;
+			*/		
+		//	}
+			
 		}
 	}
 }
