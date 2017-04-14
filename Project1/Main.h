@@ -16,8 +16,8 @@
 using namespace std;
 
 #define SHAPE_SIZE 64
-#define SCREEN_WIDTH 1600
-#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 #define LEVEL_HEIGHT 6
 #define LEVEL_WIDTH 6
 

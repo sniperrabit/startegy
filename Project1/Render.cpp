@@ -64,10 +64,6 @@ void Main::render(SDL_Renderer *renderer,int size) {
 	
 	SDL_RenderClear(renderer);
 	//Render ground
-
-	//Entity* entity;
-	//entity = Area::AreaControl.EntityList.pop_front;
-	
 	
 	Area::AreaControl.OnRender(renderer, Area::AreaControl.MapList, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
 
@@ -76,13 +72,11 @@ void Main::render(SDL_Renderer *renderer,int size) {
 	hero.point.x -= Camera::CameraControl.GetX();
 	hero.point.y -= Camera::CameraControl.GetY();
 
-	//int idMapHero = -hero.point.x / LEVEL_WIDTH;
-	//idMapHero = idMapHero + ((-hero.point.y / LEVEL_WIDTH) * 0);// * areaSize
 	
 	int MapWidth = LEVEL_WIDTH * TILE_SIZE;//6x16
 	int MapHeight = LEVEL_HEIGHT * TILE_SIZE;//6x16
-	int idMapHero = hero.point.x /( LEVEL_WIDTH-1);
-	idMapHero = idMapHero + ((hero.point.y / (LEVEL_HEIGHT-1)) * 3);//x3
+	int idMapHero = (hero.point.x+0.5) /( LEVEL_WIDTH);
+	idMapHero = idMapHero + ((int)((hero.point.y + 0.9) / (LEVEL_HEIGHT)) * 3);//x3
 
 
 	Area::AreaControl.OnRender(renderer, Area::AreaControl.BuildingMapList, Camera::CameraControl.GetX(), Camera::CameraControl.GetY(), hero, idMapHero);

@@ -55,7 +55,7 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 				//tempTile.TypeID = 1;
 			
 			}
-			else if (tempTile.id == 9) { //HERO		
+			if (tempTile.id == 9) { //HERO		
 				tempTile =Entity();
 			//	tempTile =new Entity(i, ENTITY_TYPE_PLAYER, "gfx/yoshi2.png", x, y, renderer, 1, 1, 8);			
 				tempTile.OnLoad(i, ENTITY_TYPE_PLAYER, "gfx/yoshi2.png", x, y, renderer, 1, 1, 8);
@@ -65,7 +65,9 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 			//	Entity* enPtr;
 			//	enPtr=&Area::AreaControl.EntityList.back();
 				tempTile.heroPtr = &tempTile;
+				tempTile = Entity(i, TILE_TYPE_NONE, "gfx/grass2.png", x, y, renderer, 1, 1, 8);
 			}
+			
 
 			i++;
 
@@ -78,16 +80,13 @@ return true;
 }
 //MapX and MapY arguments. These tell use where to render this map on the screen. 
 void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
-
+	printf("RENDER\n");
 	int ID = 0;
 	for (int Y = 0; Y < LEVEL_HEIGHT; Y++) {
 		for (int X = 0; X < LEVEL_WIDTH; X++) {
 
-
-			if (TileList[ID].TypeID == TILE_TYPE_NONE) {//Empty tile, not render
-				ID++;
-				continue;
-			}
+		
+		
 			Point* p = new Point(0,0);
 						
 //			int tX = MapX + (X * SHAPE_SIZE);
@@ -98,9 +97,12 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 
 			int TilesetX = (TileList[ID].id % TileList[ID].width) * SHAPE_SIZE;
 			int TilesetY = (TileList[ID].id / TileList[ID].height) * SHAPE_SIZE;
-		
-			int hy = (int)floor(hero.point.y);
-			int hx = (int)floor(hero.point.x);
+			
+
+			int hx = (int)floor(hero.point.x + 0.5) % LEVEL_WIDTH;
+			int hy = (int)floor(hero.point.y + 0.9) % LEVEL_HEIGHT;
+			
+			//Render Hero
 			if (hero.TypeID ==ENTITY_TYPE_PLAYER && (hy == Y && hx == X)){
 				
 				hero.point.x -= Camera::CameraControl.GetX();
@@ -108,15 +110,18 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET
 																								//	Hero h =(Hero) Entity::EntityList[0];
 				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * 64, (hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * 64, hero.width, hero.height);
-
+				printf("[%d,%d] renderEntity \n", X, Y);
 				delete p;
 				ID++;
 				
-			}else {
+			}else if (TileList[ID].TypeID == TILE_TYPE_NONE) {//Empty tile, not render ,next ID
+				ID++;
+				continue;
+			} else { //Entity building render
 
 				//render one tile
 				Main::renderMap(renderer, TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);
-
+				printf("[%d,%d] renderMap \n", X, Y);
 				delete p;
 				ID++;
 			}

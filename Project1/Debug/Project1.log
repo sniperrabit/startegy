@@ -5,7 +5,13 @@ c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cp
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(46): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(85): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\render.cpp(78): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Map.cpp
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(94): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(95): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(157): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(158): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\rafal\documents\visual studio 2015\projects\project1\project1\map.cpp(161): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> C:\Users\rafal\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
