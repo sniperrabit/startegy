@@ -80,7 +80,7 @@ return true;
 }
 //MapX and MapY arguments. These tell use where to render this map on the screen. 
 void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
-	printf("RENDER\n");
+//	printf("RENDER\n");
 	int ID = 0;
 	for (int Y = 0; Y < LEVEL_HEIGHT; Y++) {
 		for (int X = 0; X < LEVEL_WIDTH; X++) {
@@ -109,8 +109,8 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 				hero.point.y -= Camera::CameraControl.GetY();
 				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET
 																								//	Hero h =(Hero) Entity::EntityList[0];
-				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * 64, (hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * 64, hero.width, hero.height);
-				printf("[%d,%d] renderEntity \n", X, Y);
+				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * SHAPE_SIZE_IMG, (hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * SHAPE_SIZE_IMG, hero.width, hero.height);
+//				printf("[%d,%d] renderEntity \n", X, Y);
 				delete p;
 				ID++;
 				
@@ -121,7 +121,7 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 
 				//render one tile
 				Main::renderMap(renderer, TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);
-				printf("[%d,%d] renderMap \n", X, Y);
+		//		printf("[%d,%d] renderMap \n", X, Y);
 				delete p;
 				ID++;
 			}
@@ -155,7 +155,8 @@ Entity* Map::GetTile(float X, float Y) {
 	int ID = 0;
 
 	ID = abs(X) / TILE_SIZE;
-	ID = ID + (LEVEL_WIDTH * (abs(Y) / TILE_SIZE));
+	int a = (abs(Y) / TILE_SIZE);
+	ID = ID + (LEVEL_WIDTH * a);
 	printf("GET TILE: %f, %f \n",X,Y);
 
 	if (ID < 0 || ID >= TileList.size()) {

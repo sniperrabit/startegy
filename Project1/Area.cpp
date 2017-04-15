@@ -128,7 +128,7 @@ void Area::OnRender(SDL_Renderer *renderer, std::vector<Map> & objectMapList, in
 		//Render all maps
 		int X = ((i % AreaSize) * MapWidth) + CameraX;
 		int Y = ((i / AreaSize) * MapHeight) + CameraY;
-		printf("RENDER Map ID: %d [%d;%d]\n", i,X,Y);
+	//	printf("RENDER Map ID: %d [%d;%d]\n", i,X,Y);
 		if (hero.id!=NULL && idMapHero == i) {
 			objectMapList[i].OnRender(renderer, X + LEVEL_WIDTH, Y - LEVEL_HEIGHT, hero);
 		}

@@ -139,6 +139,7 @@
     <ClInclude Include="Area.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="define.h" />
     <ClInclude Include="EntityCol.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="Hero.h" />

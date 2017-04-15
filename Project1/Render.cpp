@@ -51,8 +51,8 @@ void Main::renderEntity(SDL_Renderer* renderer, Entity entity, Point *p, int X2,
 	SDL_Rect SrcR;
 	SrcR.x = X2;
 	SrcR.y = Y2;
-	SrcR.w = W*SHAPE_SIZE;
-	SrcR.h = H*SHAPE_SIZE;
+	SrcR.w = W*SHAPE_SIZE_IMG;
+	SrcR.h = H*SHAPE_SIZE_IMG;
 
 	//	SDL_FreeSurface(Surf_Temp);
 	//	SDL_UpdateTexture(hero.textureEntity, NULL, hero.surfaceEntity->pixels, hero.surfaceEntity->pitch);
