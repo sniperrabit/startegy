@@ -215,8 +215,8 @@ void Entity::OnMove(float MoveX, float MoveY) {
 
 	//MoveX *= FPS::FPSControl.GetSpeedFactor();
 	//MoveY *= FPS::FPSControl.GetSpeedFactor();
-	MoveX *= 0.05f;
-	MoveY *= 0.05f;
+	MoveX *= 0.01;
+	MoveY *= 0.01;
 
 	if (MoveX != 0) {
 		if (MoveX >= 0) {
@@ -249,17 +249,29 @@ void Entity::OnMove(float MoveX, float MoveY) {
 		}
 		else {
 			printf("Check PosValid FOR X\n");
-			if (PosValid((int)(point.x + NewX+ 0.5), (int)(point.y + 0.9))) {  //+0.5 +0.9 set solid point on center on foot of shape 1x1
-				if(point.x + NewX >=0)//end of map
-				point.x += NewX;
+			if (PosValid((int)(point.x + NewX+ 0.9), (int)(point.y + 0.9))) {  //+0.5 +0.9 set solid point on center on foot of shape 1x1
+				if (point.x + NewX >= 0 && point.x + NewX < LEVEL_WIDTH * 3 - 1) {//end of map
+					if (point.x > LEVEL_WIDTH * 3 - 1) {
+						point.x = LEVEL_WIDTH * 3 - 1;
+					}
+					else {
+						point.x += NewX;
+					}
+				}
 			}
 			else {
 				SpeedX = 0;
 			}
 			printf("\nCheck PosValid FOR Y\n");
-			if (PosValid((int)(point.x + 0.5 ), (int)(point.y + NewY + 0.9))) {
-				if (point.y + NewY >= 0)//end of map
-				point.y += NewY;
+			if (PosValid((int)(point.x + 0.9 ), (int)(point.y + NewY + 0.9))) {
+				if (point.y + NewY >= 0 && point.y + NewY < LEVEL_HEIGHT * 3 - 1) {//end of map
+					if (point.y > LEVEL_HEIGHT * 3 - 1) {
+						point.y = LEVEL_HEIGHT * 3 - 1;
+					}
+					else {
+						point.y += NewY;
+					}
+				}
 			}else{
 				if (MoveY > 0) {
 					CanJump = true;
@@ -359,6 +371,10 @@ bool Entity::PosValid(int NewX, int NewY) {
 		printf("x=%f , y=%f \n", Tile->point.x, Tile->point.y);
 		printf("block\n\n");
 		return  false;
+	}
+	else if(Tile==NULL){
+		printf("BLOCK END OF MAP\n");
+		printf("Hx=%f , Hy=%f \n", this->point.x, this->point.y);		
 	}
 	else {
 		printf("--free---\n");

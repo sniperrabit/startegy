@@ -52,9 +52,15 @@ bool Map::OnLoad(char* File, SDL_Renderer* renderer) {
 			}
 			else if (tempTile.id == 3) {
 				tempTile = Entity(i, TILE_TYPE_BLOCK, "gfx/house2.png", x, y, renderer, 2, 3, 8);
+				
 				//tempTile.TypeID = 1;
 			
 			}
+			else if (tempTile.id == 8) {
+				tempTile = Entity(i, TILE_TYPE_BLOCK, "xx", x, y, renderer, 1, 1, 8);
+				//tempTile.TypeID = 1;
+			}
+
 			if (tempTile.id == 9) { //HERO		
 				tempTile =Entity();
 			//	tempTile =new Entity(i, ENTITY_TYPE_PLAYER, "gfx/yoshi2.png", x, y, renderer, 1, 1, 8);			
@@ -108,7 +114,7 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 				hero.point.x -= Camera::CameraControl.GetX();
 				hero.point.y -= Camera::CameraControl.GetY();
 				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET
-																								//	Hero h =(Hero) Entity::EntityList[0];
+																								
 				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * SHAPE_SIZE_IMG, (hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * SHAPE_SIZE_IMG, hero.width, hero.height);
 //				printf("[%d,%d] renderEntity \n", X, Y);
 				delete p;
@@ -123,30 +129,8 @@ void Map::OnRender(SDL_Renderer *renderer,int MapX, int MapY, Entity &hero) {
 				Main::renderMap(renderer, TileList[ID].textureEntity, p, SHAPE_SIZE, TileList[ID].width, TileList[ID].height);
 		//		printf("[%d,%d] renderMap \n", X, Y);
 				delete p;
-				ID++;
-			}
-		//	if (TileList[ID].TypeID == ENTITY_TYPE_PLAYER) {//Empty tile, not render
-
-			//	Main::MainCache.Hero3.point.x -= Camera::CameraControl.GetX();
-			//	Main::MainCache.Hero3.point.y -= Camera::CameraControl.GetY();
-			//	Point* p = new Point(Main::MainCache.Hero3.point.x+LEVEL_WIDTH, Main::MainCache.Hero3.point.y - LEVEL_HEIGHT);//OFFSET
-			//	Hero h =(Hero) Entity::EntityList[0];
-			//		CSurface::OnDraw(renderer, h, *p, Hero3.CurrentFrameCol * 64,
-			//			(Hero3.CurrentFrameRow +Hero3.Anim_Control.GetCurrentFrame()) * 64, Hero3.width, Hero3.height);
-
-				/*
-				Entity hero;
-				hero= Area::AreaControl.EntityList.front();
-				hero.point.x -= Camera::CameraControl.GetX();
-				hero.point.y -= Camera::CameraControl.GetY();
-				Point* p = new Point(hero.point.x + LEVEL_WIDTH, hero.point.y - LEVEL_HEIGHT);//OFFSET																															
-				Main::renderEntity(renderer, hero, p, hero.CurrentFrameCol * 64,( hero.CurrentFrameRow + hero.Anim_Control.GetCurrentFrame()) * 64, hero.width, hero.height);
-				
-				delete p;
-				ID++;
-			*/		
-		//	}
-			
+				ID++;			
+			}			
 		}
 	}
 }

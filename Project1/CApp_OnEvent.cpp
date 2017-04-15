@@ -15,8 +15,9 @@ void Main::OnEvent(SDL_Event* Event) {
 			//Camera::CameraControl.OnMove(-1, -1);	//from isometric  to cartezjan	
 			heroPtr->MoveDown = true;
 			heroPtr->MoveUp = false;
-
-			heroPtr->point.y += 0.01;
+			if (heroPtr->point.y  < LEVEL_HEIGHT * 3 -2){//* area size //end of map
+				heroPtr->point.y += 0.01;
+			}
 			break;
 		case SDL_SCANCODE_UP:
 			//Camera::CameraControl.OnMove(1, 1);
@@ -37,7 +38,9 @@ void Main::OnEvent(SDL_Event* Event) {
 			heroPtr->MoveLeft = false;
 			heroPtr->MoveRight = true;
 			//Camera::CameraControl.OnMove(-1, 1);
-			heroPtr->point.x += 0.01;
+			if (heroPtr->point.x < LEVEL_WIDTH * 3 - 1) {//* area size //end of map
+				heroPtr->point.x += 0.01;
+			}			
 			break;
 		case SDLK_SPACE: 
 			heroPtr->Jump();

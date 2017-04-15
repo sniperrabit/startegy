@@ -8,8 +8,8 @@ void Main::renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size
 	//Setup the destination rectangle to be at the position we want
 	SDL_Rect dst;
 
-	if (h>1) {//for bigger buildings	
-		tmp.y = tmp.y - h/2;
+	if (h>1) {//for buildings	
+		tmp.y = tmp.y - h/2 ;
 		tmp.x = tmp.x - w/2;
 		dst.x = tmp.x*size;
 		dst.y = (tmp.y *size);// -((h*size) - size);
@@ -19,7 +19,7 @@ void Main::renderMap(SDL_Renderer *renderer,SDL_Texture *tex, Point* p, int size
 		SDL_RenderCopy(renderer, tex, NULL, &dst);
 		//SDL_RenderPresent(ren);
 	}
-	else {
+	else if(h==1) {// map
 		dst.x = tmp.x*size;
 		dst.y = (tmp.y *size) - ((h*size) - size);
 
